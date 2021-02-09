@@ -38,8 +38,11 @@ For each query, '9_Retrieval.py' extracts the relvant augnmentations in the form
 
 ## Prereqisites:
 Here is a list of python libraries. Install them befoe running the codes:
+
 wikipedia-api
+
 whoosh
+
 tagme
 
 ## How to run:
