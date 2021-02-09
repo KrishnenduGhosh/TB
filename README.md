@@ -15,22 +15,24 @@ The proposed textbook augmentation system has been realized using four major mod
 
 # Steps:
 ## 1. Data collection:
-Transcript data for 27 textbooks from 7 subjects (Physics, Chemistry, Biology, Mathematics, Science, Geography and Economics) across 6-12 grades collected from https://ncert.nic.in. These data are collected and stored in 1_PDF folder in PDF format. You can download the data from https://drive.google.com/open?id=1KTWhbPk-N8_rz-p-wSIMo9nKKYWU7PU9
+Transcript data for 27 textbooks from 7 subjects (Physics, Chemistry, Biology, Mathematics, Science, Geography and Economics) across 6-12 grades collected from https://ncert.nic.in. These data are collected and stored in 1_PDF folder in PDF format. You can download the data from https://drive.google.com/drive/folders/1bfzMKe-GATR-2rucQGPipN1qmFCCeH-S?usp=sharing
 ## 2. Preprocessing:
-Textbook contents (PDFs) are converted into TXT format and pre-processed by removing spurious data (appendix, exercise etc.). The code '1_convert.py' converts and preprocesses the data from folder '1_PDF' and stores in '2_Text' folder.
+Textbook contents (PDFs) are converted into TXT format and pre-processed by removing spurious data (appendix, exercise etc.). The code '1_convert.py' converts and preprocesses the data from folder '1_PDF' and stores in '2_Text' folder in TXT format.
 ## 3. Segmentation:
-The tTextbook contents are segmented into textbook sections. The code '2_section.py' segments transcripts from '2_Text' folder and stores in '3_Section' folder.
+The textbook contents are segmented into textbook sections. The code '2_section.py' segments transcripts from '2_Text' folder and stores in '3_Section' folder.
 ## 4. Concept Extraction:
-A. Key-concepts are extracted for each textbook sections. The code '3_concept.py' extracts the topics and stores in '4_Concept' folder in JSON format.
+A. Key-concepts are extracted for each textbook sections. The code '3_concept.py' extracts the topics and stores in '4_Concept' folder in JSON format. We create 'uConcepts.txt' to store all the unique concepts. We also create 7 different files (with name of the corrsponding grade-levels, e.g., '6.txt' for grade-level 6) to store the concepts, used in the textbooks asscoiated to specific grade-levels.
 
-B. Wikipedia links are extracted for the extracted concepts. The code '4_Wiki.py' extracts the inlinks and outlinks, and stores in '4_Links' folder in JSON format.
+B. Wikipedia links are extracted for the extracted concepts. The code '4_wiki.py' extracts the inlinks and outlinks, and stores in '4_Link' folder in TXT format. It also randomly selects a set of 100 concepts and stores them with their inlnks and outlinks in '4_Aspect' folder in TXT format. This folder contains three files: 'Related.txt,' 'Prerequisite.txt,' and 'Dependent.txt.' We assigned annotatotrs to tag these concepts and their aspcts as right/wrong, and this annotation is stored as 'GS_Aspects.txt' (available at https://drive.google.com/open?id=1peCDKd2u1xUuez5waN-2OgFRaSvUelh3).
 
-C. Based on these links, aspects (prerequisite, dependent or related concepts) for a concept is determined. The code '5_Aspect.py' determines these aspects for all the concepts present in '4_Links' folder and stores the aspects in '4_Aspects' folder in JSON format. It also stores a small dataset of 100 concepts and their
-aspects in 'Aspects.txt' for manual annotation. The annotator tagged these concepts and their aspcts as right/wrong, and this annotation is stored as 'GS_Aspects.txt' (available at https://drive.google.com/open?id=1peCDKd2u1xUuez5waN-2OgFRaSvUelh3).
 ## 5. Deficiency Diagnosis:
-The textbook concepts are diagnosed for deficiencies. The code '4_off_predict.py' identifies the off-topics, stores them in '5_off' folder and also evaluates the concerned modules.
+A. The concepts from '4_Concept' folder are shown to annotators and they are asked to tag the cooresponding deficiency. This annotation is stored as 'GS_Deficiency.txt' (available at https://drive.google.com/open?id=1peCDKd2u1xUuez5waN-2OgFRaSvUelh3), made by combining 'GS1_Deficiency.txt' and 'GS1_Deficiency.txt.'
+
+B. '5_sfeature.py' extracts the section-specfic features and stores in '5_sfeature' folder. Similarly, '6_cfeature.py' extracts the concept=specific features and stores in '6_cfeature' folder. Combining this features values with the annotation lables from 'GS_Deficiency.txt', we create a 'feature.txt' representing the feature vector and label.
+
+C. Dataset from 'feature.txt' are divided in 3 parts: train, validate and test sets. '7_Deficiency.py' trains the deficiency identification model with train set and analyzes the performance of the features over the validation set to select the optimal set of features. Using those features, the deficient concepts are determined for the test set. The final performance of the deficiency identification model is also obtained. The predicted deficiency information is stored in '7_Deficiency' folder in TXT format.
 ## 6. Query Generation:
-Video lecture segments relevant to each of the off-topics are retrieved. The code '6_retrieval.py' retrieves the segments and stores in '6_Retrieved' folder in JSON format and as 'RT.txt' in '8_Retrieved/trec-eval/test' folder in TREC suggested text format. The '8_Result' folder is downloadable from https://drive.google.com/open?id=17-IxebyTtNsSXY98FfkTJWHK9goHhkOT which contains the folder 'trec-eval', providing the performance evaluation codes.
+'8_Query.py' generates the queries for the concepts based on their context and deficiencies. These queries are stored in '8_Query' folder.
 ## 7. Textbook Augmentation:
 A. Code '7_feature.py' extracts the features and stores them in 'rerank.txt' file under '7_Reranked' folder.
 
