@@ -23,10 +23,10 @@ The textbook contents are segmented into textbook sections. The code '2_section.
 ## 4. Concept Extraction:
 A. Key-concepts are extracted for each textbook sections. The code '3_concept.py' extracts the topics and stores in '4_Concept' folder in JSON format. We create 'uConcepts.txt' to store all the unique concepts. We also create 7 different files (with name of the corrsponding grade-levels, e.g., '6.txt' for grade-level 6) to store the concepts, used in the textbooks asscoiated to specific grade-levels.
 
-B. Wikipedia links are extracted for the extracted concepts. The code '4_wiki.py' extracts the inlinks and outlinks, and stores in '4_Link' folder in TXT format. It also randomly selects a set of 100 concepts and stores them with their inlnks and outlinks in '4_Aspect' folder in TXT format. This folder contains three files: 'Related.txt,' 'Prerequisite.txt,' and 'Dependent.txt.' We assigned annotatotrs to tag these concepts and their aspcts as right/wrong, and this annotation is stored as 'GS_Aspects.txt' (available at https://drive.google.com/open?id=1peCDKd2u1xUuez5waN-2OgFRaSvUelh3).
+B. Wikipedia links are extracted for the extracted concepts. The code '4_wiki.py' extracts the inlinks and outlinks, and stores in '4_Link' folder in TXT format. It also randomly selects a set of 100 concepts and stores them with their inlnks and outlinks in '4_Aspect' folder in TXT format. This folder contains three files: 'Related.txt,' 'Prerequisite.txt,' and 'Dependent.txt.' We assigned annotatotrs to tag these concepts and their aspcts as right/wrong, and this annotation is stored as 'GS_Aspects.txt' (under folder 'GS' available at https://drive.google.com/drive/folders/1sbZoJzqcABbMce9uj1AojsQbDOqjCQaq?usp=sharing).
 
 ## 5. Deficiency Diagnosis:
-A. The concepts from '4_Concept' folder are shown to annotators and they are asked to tag the cooresponding deficiency. This annotation is stored as 'GS_Deficiency.txt' (available at https://drive.google.com/open?id=1peCDKd2u1xUuez5waN-2OgFRaSvUelh3), made by combining 'GS1_Deficiency.txt' and 'GS1_Deficiency.txt.'
+A. The concepts from '4_Concept' folder are shown to annotators and they are asked to tag the cooresponding deficiency. This annotation is stored as 'GS_Deficiency.txt' (under folder 'GS' available at https://drive.google.com/drive/folders/1sbZoJzqcABbMce9uj1AojsQbDOqjCQaq?usp=sharing), made by combining 'GS1_Deficiency.txt' and 'GS1_Deficiency.txt.'
 
 B. '5_sfeature.py' extracts the section-specfic features and stores in '5_sfeature' folder. Similarly, '6_cfeature.py' extracts the concept=specific features and stores in '6_cfeature' folder. Combining this features values with the annotation lables from 'GS_Deficiency.txt', we create a 'feature.txt' representing the feature vector and label.
 
@@ -34,23 +34,16 @@ C. Dataset from 'feature.txt' are divided in 3 parts: train, validate and test s
 ## 6. Query Generation:
 '8_Query.py' generates the queries for the concepts based on their context and deficiencies. These queries are stored in '8_Query' folder.
 ## 7. Textbook Augmentation:
-A. Code '7_feature.py' extracts the features and stores them in 'rerank.txt' file under '7_Reranked' folder.
+For each query, '9_Retrieval.py' extracts the relvant augnmentations in the form of QA pairs and links them to the textbooks. These augmentations are stored in '9_Retrieval' folder in JSON format. These augmentations are shown to the annotators and asked to tag their relevance. This annotation is stored as 'GS_Augmentation.txt' (under folder 'GS' available at https://drive.google.com/drive/folders/1sbZoJzqcABbMce9uj1AojsQbDOqjCQaq?usp=sharing), made by combining 'GS1_Augmentation.txt' and 'GS2_Augmentation.txt.'
 
-B. The extracted features are combined with the the labels (relevant or not) from 'GS.txt' by code '7_L2R.py' and stores in 'L2R.txt'. Running linear regression models, the code '7_L2R.py' further detemines the weights for the features.
+## Prereqisites:
+Here is a list of python libraries. Install them befoe running the codes:
+wikipedia-api
+whoosh
+tagme
 
-C. The retrieved video lecture segments are reranked using code '7_rerank.py' where the learned weights are used. The reranked segments are stored in '7_Reranked' folder in JSON format and as 'RR.txt' in '8_Retrieved/trec-eval/test' folder in TREC suggested text format.
-## 8. Evaluation:
-A. The retrieved and reranked segmnets are shown to the annotators and their relevance are tagged. The gold standard is present in 'GS.txt' file. The file can be downloaded from https://drive.google.com/open?id=1sKfmBveCkUtaL_5cJqKG0li_z-c0wns4 .
-
-B. The code '8_eval.py' evaluates the retrieval and re-ranking performance. The '8_Result' folder is downloadable from https://drive.google.com/open?id=17-IxebyTtNsSXY98FfkTJWHK9goHhkOT which contains the folder 'trec-eval', providing the performance evaluation codes.
-
-# Run:
-## Prepare the pre-requisites:
-A. To run the above-mentioned codes, one needs a list of supporting files, as offered inside a 'lib' folder in the current directory. The 'lib' folder can be downloaded from https://drive.google.com/open?id=11PJ0Y-3RavS2F0B8lj247M5pK19fK11I.
-
-B. Geckodriver is also required. Download this from https://drive.google.com/open?id=1Mf92NT_MNV-z2ZXVkkuneIGw7hLoe8n1 and place in the current directory. Export it in PATH before running the codes.
-## Execute:
-Finally, run 'main.py' which offers a menu-based control to execute each of the above-mentioned modules.
+## How to run:
+Run 'main.py' which offers a menu-based control to execute each of the above-mentioned modules. If any of the required python libraries are not installed, associated errors will be generated. Install those libraries to run the codes successfully.
 
 # Contacts
 In case of any queries, you can reach us at kghosh.cs@iitkgp.ac.in
