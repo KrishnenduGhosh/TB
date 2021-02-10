@@ -25,7 +25,7 @@ A. Key-concepts are extracted for each textbook sections. The code '3_concept.py
 
 B. Wikipedia links are extracted for the extracted concepts. The code '4_wiki.py' extracts the inlinks and outlinks, and stores in '4_Link' folder in TXT format.
 
-C. The code '5_aspect.py' combines the inlinks and outlinks for randomly selected 100 concepts, and stores in '5_Aspect' folder in TXT format. This folder contains three files: 'Related.txt,' 'Prerequisite.txt,' and 'Dependent.txt.' We assigned annotatotrs to tag these concepts and their aspcts as right/wrong, and this annotation is stored as 'GS_Aspects.txt' (under folder 'GS' available at https://drive.google.com/drive/folders/1sbZoJzqcABbMce9uj1AojsQbDOqjCQaq?usp=sharing).
+C. The code '5_aspect.py' combines the inlinks and outlinks for randomly selected 100 concepts, and stores in '5_Aspect' folder in TXT format. This folder contains three files: 'Related.txt,' 'Prerequisite.txt,' and 'Dependent.txt.' We assigned annotatotrs to tag these concepts and their aspcts as right/wrong, and these annotations are stored as 'GS_Related.txt,' 'GS_Prerequisite.txt,' and 'GS_Dependent.txt' (under folder 'GS' available at https://drive.google.com/drive/folders/1sbZoJzqcABbMce9uj1AojsQbDOqjCQaq?usp=sharing).
 
 ## 5. Deficiency Diagnosis:
 A. The concepts from '4_Concept' folder are shown to annotators and they are asked to tag the cooresponding deficiency. This annotation is stored as 'GS_Deficiency.txt' (under folder 'GS' available at https://drive.google.com/drive/folders/1sbZoJzqcABbMce9uj1AojsQbDOqjCQaq?usp=sharing), made by combining 'GS1_Deficiency.txt' and 'GS1_Deficiency.txt.'
