@@ -101,7 +101,7 @@ def wiki():
 				f1.write(uc.lower() + "\n")
 			f1.close()
 		if not os.path.exists(dir_out_path + line.lower().strip().replace("/","") + "_outlink.txt"):
-			olist = getidata(line.strip().lower())
+			olist = getodata(line.strip().lower())
 			f2 = open(dir_out_path + line.lower().strip().replace("/","") + "_outlink.txt", "a")
 			for uc in olist:
 				f2.write(uc.lower() + "\n")
@@ -109,24 +109,8 @@ def wiki():
 	f.close()
 	print("Collected all Wikipedia links")
 
-def aspect():
-	file_in='./4_Concept/uConcepts.txt'
-	alist = []
-	f = open(file_in, "r")
-	for line in f:
-		alist.append(line.lower())
-	f.close()
-	slist = random.sample(alist, 100)
-	for s in slist:
-		f1 = './4_Link/' + s.lower().strip().replace("/","") + "_inlink.txt"
-		f2 = './4_Link/' + s.lower().strip().replace("/","") + "_outlink.txt"
-		os.system("cp " + f1 + " 4_Aspect/")
-		os.system("cp " + f2 + " 4_Aspect/")
-	print("Copied 100 random links")
-
 def main(): #main for menu
 	wiki()
-#	aspect()
 
 if __name__ == '__main__':
 	main()
