@@ -54,7 +54,7 @@ Here is a list of python libraries. Install them befoe running the codes:
 * NLTK
 * Spacy
 * Numpy
-* 
+* Sling
 * Tagme
 
 ## How to run:
