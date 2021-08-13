@@ -18,7 +18,7 @@ The proposed textbook augmentation system has been realized using four major mod
 ## 1. Data Collection:
 A. Textbook data: 27 textbooks from 7 subjects (Physics, Chemistry, Biology, Mathematics, Science, Geography and Economics) across grade-levels 6-12 are collected from https://ncert.nic.in. These data are stored in 1_PDF folder in PDF format. You can download the data from https://drive.google.com/drive/folders/1bfzMKe-GATR-2rucQGPipN1qmFCCeH-S?usp=sharing
 
-B. QA data: 6 different Stack Exchange sites (Mathematics, Physics, Chemistry, Biology, Earth Science, and Economics) are dumped as 7 XML files (Physics, Chemistry, Biology, Mathematics, Science, Geography and Economics) under 'QA' folder. You can download the data from https://drive.google.com/drive/folders/1bfzMKe-GATR-2rucQGPipN1qmFCCeH-S?usp=sharing
+B. QA data: 6 different Stack Exchange sites (Mathematics, Physics, Chemistry, Biology, Earth Science, and Economics) are dumped as 7 XML files (Physics, Chemistry, Biology, Mathematics, Science, Geography and Economics) under 'QA' folder. You can download the dumps from https://archive.org/details/stackexchange
  
 ## 2. Preprocessing:
 Textbook contents (PDFs) are converted into TXT format and pre-processed by removing spurious data (appendix, exercise etc.). The code '1_convert.py' converts and preprocesses the data from folder '1_PDF' and stores in '2_Text' folder in TXT format.
