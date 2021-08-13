@@ -1,14 +1,4 @@
-import urllib.request as urllib2
-import urllib.parse
-from bs4 import BeautifulSoup
-from math import log
-from igraph import *
-import time
-import re
-import tagme
-import pickle
-import json
-import random
+import os
 
 def preprocess():
 	ctr = 0
@@ -30,7 +20,7 @@ def preprocess():
 					ctr=ctr+1
 					os.system("pdftotext " + odirectory + "/" + z)
 					os.system("mv " + odirectory + "/" + z.replace(".pdf",".txt") + " " + odirectory.replace("1_PDF","2_Text") + "/")
-	print("Preprocessing over for " + str(ctr) + " files")
+	print(str(ctr) +" PDFs are convertd to TXTs")
 
 
 if __name__=="__main__":

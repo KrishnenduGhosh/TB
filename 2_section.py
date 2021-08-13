@@ -9,27 +9,7 @@ from lib.textsplit.tools import get_penalty, get_segments
 from lib.textsplit.algorithm import split_optimal, split_greedy, get_total
 import re
 
-corpus_path = 'lib/text8'  # be sure your corpus is cleaned from punctuation and lowercased
-if not os.path.exists(corpus_path):
-	get_ipython().system(u'wget http://mattmahoney.net/dc/text8.zip')
-	get_ipython().system(u'unzip {corpus_path}')
-wrdvec_path = 'lib/wrdvecs-text8.bin'
-if not os.path.exists(wrdvec_path):
-	get_ipython().magic(u"time word2vec.word2vec(corpus_path, wrdvec_path, cbow=1, iter_=5, hs=1, threads=4, sample='1e-5', window=15, size=200, binary=1)")
-model = word2vec.load(wrdvec_path)
-wrdvecs = pd.DataFrame(model.vectors, index=model.vocab)
-filename = "lib/finalized_model.sav"
-pickle.dump(model, open(filename, 'wb'))
-del model
-print(wrdvecs.shape)
-nltk.download('punkt')
-sentence_analyzer = nltk.data.load('tokenizers/punkt/english.pickle')
-
-segment_len = 20  # segment target length in sentences
-
-topics = ['Physics','Chemistry', 'Mathematics','Biology','Science','Geography','Economics']
-for subject in topics:
-	print(subject)
+def section(subject,segment_len,sentence_analyzer,wrdvecs):
 	dir_name='2_Text/'+subject
 	dir_out_path='3_Section/'+subject
 	if not os.path.exists(dir_out_path):
@@ -62,5 +42,28 @@ for subject in topics:
 			df = pd.DataFrame({'greedy':lengths_greedy, 'optimal': lengths_optimal})
 			totals = [get_total(sentence_vectors, seg.splits, penalty) for seg in [optimal_segmentation, greedy_segmentation]]
 
+if __name__=="__main__":
+	corpus_path = 'lib/text8'  # be sure your corpus is cleaned from punctuation and lowercased
+	if not os.path.exists(corpus_path):
+		get_ipython().system(u'wget http://mattmahoney.net/dc/text8.zip')
+		get_ipython().system(u'unzip {corpus_path}')
+	wrdvec_path = 'lib/wrdvecs-text8.bin'
+	if not os.path.exists(wrdvec_path):
+		get_ipython().magic(u"time word2vec.word2vec(corpus_path, wrdvec_path, cbow=1, iter_=5, hs=1, threads=4, sample='1e-5', window=15, size=200, binary=1)")
+	model = word2vec.load(wrdvec_path)
+	wrdvecs = pd.DataFrame(model.vectors, index=model.vocab)
+	filename = "lib/finalized_model.sav"
+	pickle.dump(model, open(filename, 'wb'))
+	del model
+	print(wrdvecs.shape)
+	nltk.download('punkt')
+	sentence_analyzer = nltk.data.load('tokenizers/punkt/english.pickle')
 
-print("Segmentation over...........")
+	segment_len = 20  # segment target length in sentences
+
+	subjects = ['Physics','Chemistry', 'Mathematics','Biology','Science','Geography','Economics']
+	#subjects = ['test']
+	for subject in subjects:
+		print(subject)
+		section(subject,segment_len,sentence_analyzer,wrdvecs)
+	print("TXTs are segmented into Sections ...........")
