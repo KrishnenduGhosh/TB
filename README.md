@@ -79,7 +79,7 @@ Here is a list of python libraries. Install them befoe running the codes:
 In case of any queries, you can reach us at kghosh.cs@iitkgp.ac.in
 
 # Citation
-Please cite our work on Augmenting video lectures:
+Please cite our work on Augmenting Video Lectures:
 
     @article{ghosh2021augmenting,
         title = "Augmenting Video Lectures: Identifying Off-topic Concepts and Linking to Relevant Video Lecture Segments",
@@ -91,7 +91,7 @@ Please cite our work on Augmenting video lectures:
         keywords = "Video lecture augmentation, Off-topic concept identification, MOOCs, Concept similarity, Community detection, Retrieval and re-ranking"
     }
 
-Please cite our work on retrieving questions:
+Please cite our work on Retrieving Questions:
 
     @inproceedings{ghosh2017using,
     author = {Ghosh, Krishnendu and Bhowmick, Plaban Kumar and Goyal, Pawan},
