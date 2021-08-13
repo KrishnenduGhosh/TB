@@ -90,7 +90,8 @@ If this work is helpful for your research, please cite our paper 'Remediating Te
         author = "Krishnendu Ghosh, Plaban Kumar Bhowmick and Pawan Goyal ",
         keywords = "Concept extraction, Deficiency diagnosis, Query generation, Question retrieval, Textbook augmentation"
     }
----!>
+--->
+
 A similar work on augmenting video lectures is discussed in our paper 'Augmenting Video Lectures: Identifying Off-topic Concepts and Linking to Relevant Video Lecture Segments' available at https://link.springer.com/article/10.1007/s40593-021-00257-z.
 
     @article{ghosh2021augmenting,
