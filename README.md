@@ -71,9 +71,16 @@ Here is a list of python libraries. Install them befoe running the codes:
 * Numpy
 * Sling
 * Tagme
-* 
-* 
-* 
+* word2vec
+* pickle
+* Numpy
+* pandas
+* rank_bm25
+* stackapi
+* sklearn
+* scipy
+* libsvm
+* skmultilearn
 
 # Contacts
 In case of any queries, you can reach us at kghosh.cs@iitkgp.ac.in
