@@ -2,6 +2,7 @@ import warnings
 warnings.filterwarnings("ignore")
 import time
 import os
+import random
 import subprocess
 from sklearn.model_selection import GridSearchCV
 from sklearn.multiclass import OutputCodeClassifier,OneVsRestClassifier,OneVsOneClassifier
@@ -21,32 +22,6 @@ from sklearn.decomposition import PCA
 from libsvm.svmutil import *
 from random import sample
 
-def test(filename):
-	y, x = svm_read_problem(filename)
-	y_train = y[:200]
-	y_test = y[200:]
-	x_train = x[:200]
-	x_test = x[200:]
-	clf = svm_train(y_train, x_train, '-c 4')
-	p_label, p_acc, p_val = svm_predict(y_test, x_test, clf)
-	print("*****************************************")
-	print("Accuracy: ",accuracy_score(y_test, p_label)) # accuracy
-	print("Hamming loss: ",hamming_loss(y_test, p_label)) # hamming loss
-	print("Precision score: ",precision_score(y_test, p_label, average='weighted')) # precision score
-	print("Recall score: ",recall_score(y_test, p_label, average='weighted')) # recall score
-	print("F1 score: ",f1_score(y_test, p_label, average='weighted')) # f1 score
-	print("jaccard_score: ",jaccard_score(y_test, p_label, average='weighted')) # jaccard_score
-	print("zero_one_loss: ",zero_one_loss(y_test, p_label)) # zero_one_loss
-
-def test1():
-	y, X = svm_read_problem('feature.txt')
-	y_dense = LabelBinarizer().fit_transform(y)
-	y_sparse = sparse.csr_matrix(y_dense)
-	clf = OutputCodeClassifier(LinearSVC(random_state=0),code_size=2, random_state=0)
-	pred2 = clf.fit(X, y_sparse).predict(X)
-	print("Accuracy: ",metrics.accuracy_score(y_sparse.todense(), pred2.todense()))
-
-#For example the ANOVA F-value method is appropriate for numerical inputs and categorical data, as we see in the Pima dataset.
 def f_statistic(X,Y,num_feats): ######## Univariate Selection using f-statistic or Anova F-value
 	feats_remove = []
 	test1 = SelectKBest(score_func=f_classif, k=num_feats)
@@ -142,57 +117,46 @@ def normalize_dataset(dataset, minmax):
 			else:
 				row[i] = 0.0
 
-def balance_data(X,y,z): # sample equal instances to handle imbalance data
+def balance_data(X,y): # sample equal instances to handle imbalance data
 	mini = 0
-	alist = [0] * 28
+	alist = [0] * 4
 	X_bal = []
 	y_bal = []
-	z_bal = []
-	subjects = ['Physics','Chemistry', 'Mathematics','Biology','Science','Geography','Economics']
+
 	labels = [1,2,3,4]
 	for i in range(len(X)):
-		for j in range(len(subjects)):
-			for k in range(len(labels)):
-				if y[i] == labels[k] and z[i].startswith(subjects[j]):
-					alist[4*j+k] += 1
-	mini = min(alist)
-	for i in range(len(alist)):
 		for k in range(len(labels)):
-			if (i+1)%(k+1) == 1:
-				alist[i] = 1 * mini
-			if (i+1)%(k+1) == 2:
-				alist[i] = 1 * mini
-			if (i+1)%(k+1) == 3:
-				alist[i] = 1 * mini
-			if (i+1)%(k+1) == 4:
-				alist[i] = 1 * mini
-			else:
-				pass
-	#alist = [mini] * 28
+			if y[i] == labels[k]:
+				alist[k] += 1
+	mini = min(alist)
+	ctr1 = 0
+	ctr2 = 0
+	ctr3 = 0
+	ctr4 = 0	
 	for i in range(len(X)):
-		for j in range(len(subjects)):
-			for k in range(len(labels)):
-				if y[i] == labels[k] and z[i].startswith(subjects[j]) and alist[4*j+k] > 0:
-					alist[4*j+k] -= 1
-					X_bal.append(X[i])
-					y_bal.append(y[i])
-					z_bal.append(z[i])
-	return X_bal,y_bal,z_bal
+		if y[i] == 1 and ctr1 < mini:
+			X_bal.append(X[i])
+			y_bal.append(y[i])
+			ctr1 += 1
+		elif y[i] == 2 and ctr2 < mini:
+			X_bal.append(X[i])
+			y_bal.append(y[i])
+			ctr2 += 1
+		elif y[i] == 3 and ctr3 < mini:
+			X_bal.append(X[i])
+			y_bal.append(y[i])
+			ctr3 += 1
+		elif y[i] == 4 and ctr4 < mini:
+			X_bal.append(X[i])
+			y_bal.append(y[i])
+			ctr4 += 1
+		else:
+			pass
+	return X_bal,y_bal
 
 def load_file(filename): # loads the file
 	X = []
 	y = []
-	z =[]
-	subjects = ['Physics','Chemistry', 'Mathematics','Biology','Science','Geography','Economics']
-	for t in subjects:
-		infile1='7_cFeature/'+t+'.json'
-		with open(infile1) as json_file:
-			data = json.load(json_file)
-			for d in data:
-				cons = d['topics']
-				for i in range(len(cons)):
-					key = d['id']+" > "+cons[i].replace(" ","_").replace("(","").replace(")","")
-					z.append(key)
 	with open(filename, 'r') as file:
 		csv_reader = reader(file)
 		for row in csv_reader:
@@ -203,10 +167,10 @@ def load_file(filename): # loads the file
 				temp_row.append(round(float(row[i]),2))
 			X.append(temp_row)
 			y.append(int(row[len(row)-1]))
-	X,y,z = balance_data(X,y,z)
+	X,y = balance_data(X,y)
 	minmax = dataset_minmax(X)
 	normalize_dataset(X, minmax)
-	return X,y,z
+	return X,y
 
 def feature_selection(X,y): # obtains the optimal features
 	feats_remove1 = set(f_statistic(X,y,len(X[0])))
@@ -267,46 +231,25 @@ def show_res(score): # feature selection, training, and testing
 	print("Zero one loss: ",score[6])
 
 def predict(): # feature selection, training, and testing
-	files2=['feature1.csv','feature2.csv']
+	files2=['Physics1.csv','Chemistry1.csv', 'Mathematics1.csv','Biology1.csv','Science1.csv','Geography1.csv','Economics1.csv','Physics2.csv','Chemistry2.csv', 'Mathematics2.csv','Biology2.csv','Science2.csv','Geography2.csv','Economics2.csv','feature1.csv','feature2.csv']
+	#files2=['feature1.csv','feature2.csv']
 	path='8_Deficiency/'
 	print("Overall Predcition ...")
 	for filename in files2:
 		print(filename)
-		X,y,z=load_file(path+filename)
-		predict_store(X,y,z)
+		X,y=load_file(path+filename)
+		predict_store(X,y)
 	
-def predict_store(X,y,z): # feature selection, training, and testing
+def predict_store(X,y): # feature selection, training, and testing
 	feats_remove = feature_selection(X,y)
 	X=remove_features(X,feats_remove)
-	y_pred,y_test = classify_write(X,y)
 	score = classify(X,y)
 	show_res(score)
-	prf(y_pred,y_test)
-	class_def_sub(y_pred,y_test,z)
 
-def club_annotation(): # writing individual annotations in a single file
-	infile1='GS/GS_Deficiency1.txt'
-	infile2='GS/GS_Deficiency2.txt'
-	outfile='GS/GS_Deficiency.txt'
-		
-	f1=open(infile1,'r')
-	f2=open(infile2,'r')
-	for x, y in zip(f1, f2):
-		if x == y:
-			f3=open(outfile,'a')
-			f3.write(y.strip()+'\n')
-			f3.close()
-		else:
-			f3=open(outfile,'a')
-			f3.write(y.strip()+'\n')
-			f3.close()
-	f1.close()
-	f2.close()
-	print("Merged individual annotation files .....")
-
-def write_feature(topics): # combining the features with gold-standard
+def write_feature(): # combining the features with gold-standard
 	print("Writing feature vector combining gold-standard labels with features .....")
 	gold={}
+	con = {}
 	infile2='GS/GS_Deficiency.txt'
 	f=open(infile2,'r')
 	ctr = 0
@@ -316,8 +259,32 @@ def write_feature(topics): # combining the features with gold-standard
 		key=lpart[0]+' '+lpart[1]+' '+lpart[2].replace("(","").replace(")","")
 		val=lpart[3]
 		gold[key]=val
+		if lpart[2].replace("(","").replace(")","") not in con.keys():
+			con[lpart[2].replace("(","").replace(")","")]=ctr
 	f.close()
 
+	topics = ['Physics','Chemistry', 'Mathematics','Biology','Science','Geography','Economics']
+	for t in topics:
+		infile1='7_cFeature/'+t+'.json'
+		out_dir_name="8_Deficiency/"
+		if not os.path.exists(out_dir_name):
+			os.makedirs(out_dir_name)
+		outfile3='8_Deficiency/'+t+'1.csv'
+		outfile4='8_Deficiency/'+t+'2.csv'
+		with open(infile1) as json_file:
+			data = json.load(json_file)
+			for d in data:
+				cons = d['topics']
+				for i in range(len(cons)):
+					key1 = d['id']+" > "+cons[i].replace(" ","_").replace("(","").replace(")","")
+					key2 = cons[i].replace(" ","_").replace("(","").replace(")","")
+					f3=open(outfile3,'a')
+					f3.write(str(d['sf1'])+','+str(d['sf2'])+','+str(d['sf3'])+','+str(d['sf4'])+','+gold[key1]+'\n')
+					f3.close()
+					f4=open(outfile4,'a')
+					f4.write(str(d['sf1'])+','+str(d['sf2'])+','+str(d['sf3'])+','+str(d['sf4'])+','+str(d['cf1'][i])+','+str(d['cf2'][i])+','+str(d['cf3'][i])+','+str(d['cf4'][i])+','+str(d['cf5'][i])+','+str(d['cf6'][i])+','+str(d['cf7'][i])+','+str(d['cf8'][i])+','+str(con[key2])+','+gold[key1]+'\n')
+					f4.close()
+	
 	for t in topics:
 		infile1='7_cFeature/'+t+'.json'
 		out_dir_name="8_Deficiency/"
@@ -339,150 +306,11 @@ def write_feature(topics): # combining the features with gold-standard
 					f4.write(str(d['sf1'])+','+str(d['sf2'])+','+str(d['sf3'])+','+str(d['sf4'])+','+str(d['cf1'][i])+','+str(d['cf2'][i])+','+str(d['cf3'][i])+','+str(d['cf4'][i])+','+str(d['cf5'][i])+','+str(d['cf6'][i])+','+str(d['cf7'][i])+','+str(d['cf8'][i])+','+gold[key1]+'\n')
 					f4.close()
 
-def generate_annotation(topics): # combines cfeature and sfeature in feature.txt
-	for t in topics:
-		infile='7_cFeature/'+t+'.json'
-		outfile1='GS/GS_Deficiency1.txt'
-		outfile2='GS/GS_Deficiency2.txt'
-		with open(infile) as json_file:
-			data = json.load(json_file)
-			for d in data:
-				cons = d['topics']
-				for i in range(len(cons)):
-					f5=open(outfile1,'a')
-					f5.write(d['id']+" > "+cons[i].replace(" ","_")+' 4\n')
-					f5.close()
-					f6=open(outfile2,'a')
-					f6.write(d['id']+" > "+cons[i].replace(" ","_")+' 4\n')
-					f6.close()
-	print("Stored annotation files for deficiency .....")
-
-def class_def_sub(y_pred,y_test,z):
-	slist = ['Physics','Chemistry', 'Mathematics','Biology','Science','Geography','Economics']
-	for s in slist:
-		print(s)
-		glist = []
-		dlist = []
-		for i in range(len(z)):
-			lpart = z[i].split(" ")
-			if lpart[0].startswith(s):
-				dlist.append(y_pred[i])
-				glist.append(y_test[i])
-		prf(dlist,glist)
-
-def prf(dlist,glist):
-	ctr1=0
-	ctr2=0
-	ctr3=0
-	ctr4=0
-	ctr5=0
-	ctr6=0
-	ctr7=0
-	ctr8=0
-	ctr9=0
-	ctr10=0
-	ctr11=0
-	ctr12=0
-
-	for i in range(len(glist)):
-		if glist[i] == 1:
-			if dlist[i] == 1:
-				ctr1+=1
-		if glist[i] == 1:
-			ctr2+=1
-		if dlist[i] == 1:
-			ctr3+=1
-
-		if glist[i] == 2:
-			if dlist[i] == 2:
-				ctr4+=1
-		if glist[i] == 2:
-			ctr5+=1
-		if dlist[i] == 2:
-			ctr6+=1
-		
-		if glist[i] == 3:
-			if dlist[i] == 3:
-				ctr7+=1
-		if glist[i] == 3:
-			ctr8+=1
-		if dlist[i] == 3:
-			ctr9+=1
-			
-		if glist[i] == 4:
-			if dlist[i] == 4:
-				ctr10+=1
-		if glist[i] == 4:
-			ctr11+=1
-		if dlist[i] == 4:
-			ctr12+=1
-
-	if ctr3 == 0:
-		d1_p = 0.0
-	else:
-		d1_p = round(float(ctr1/ctr3),2)
-	if ctr2 == 0:
-		d1_r = 0.0
-	else:
-		d1_r = round(float(ctr1/ctr2),2)
-	if (d1_p + d1_r) == 0:
-		d1_f = 0.0
-	else:
-		d1_f = round(((2 * d1_p * d1_r) / (d1_p + d1_r)),2)
-
-	if ctr6 == 0:
-		d2_p = 0.0
-	else:
-		d2_p = round(float(ctr4/ctr6),2)
-	if ctr5 == 0:
-		d2_r = 0.0
-	else:
-		d2_r = round(float(ctr4/ctr5),2)
-	if (d2_p + d2_r) == 0:
-		d2_f = 0.0
-	else:
-		d2_f = round(((2 * d2_p * d2_r) / (d2_p + d2_r)),2)
-
-	if ctr9 == 0:
-		d3_p = 0.0
-	else:
-		d3_p = round(float(ctr7/ctr9),2)
-	if ctr8 == 0:
-		d3_r = 0.0
-	else:
-		d3_r = round(float(ctr7/ctr8),2)
-	if (d3_p + d3_r) == 0:
-		d3_f = 0.0
-	else:
-		d3_f = round(((2 * d3_p * d3_r) / (d3_p + d3_r)),2)
-	
-	if ctr12 == 0:
-		d4_p = 0.0
-	else:
-		d4_p = round(float(ctr10/ctr12),2)
-	if ctr11 == 0:
-		d4_r = 0.0
-	else:
-		d4_r = round(float(ctr10/ctr11),2)
-	if (d4_p + d4_r) == 0:
-		d4_f = 0.0
-	else:
-		d4_f = round(((2 * d4_p * d4_r) / (d4_p + d4_r)),2)
-
-	print(str(ctr1)+"/"+str(ctr2)+"/"+str(ctr3)+"/"+str(ctr4)+"/"+str(ctr5)+"/"+str(ctr6)+"/"+str(ctr7)+"/"+str(ctr8)+"/"+str(ctr9)+"/"+str(ctr10)+"/"+str(ctr11)+"/"+str(ctr12) )
-
-	print(str(d1_p)+" : "+str(d1_r)+" : "+str(d1_f))
-	print(str(d2_p)+" : "+str(d2_r)+" : "+str(d2_f))
-	print(str(d3_p)+" : "+str(d3_r)+" : "+str(d3_f))
-	print(str(d4_p)+" : "+str(d4_r)+" : "+str(d4_f))
-
 def main(): #main for menu
 	start_time = time.time()
 	subjects = ['Physics','Chemistry', 'Mathematics','Biology','Science','Geography','Economics']
 	#subjects = ['test']
-	generate_annotation(subjects)
-	club_annotation()
-	write_feature(subjects)
+	write_feature()
 	predict()
 	print("Exuction time: ", (time.time() - start_time))
 
