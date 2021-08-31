@@ -7,7 +7,7 @@ This project presents augmentations to handle the conceptual gaps present in tex
 
 2. Deficiency Diagnosis: The deficient concepts are diagnosed.
 
-3. Query Generation: BVased on the deficiency, the concepts are merged with their context to form a keyword-based query.
+3. Query Generation: Based on the deficiency, the concepts are merged with their context to form a keyword-based query.
 
 4. Textbook Augmentation: Using the queries, a set of QA pairs are retrieved from the associated QA archives.
 
