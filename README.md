@@ -14,7 +14,7 @@ This project presents augmentations to handle the conceptual gaps present in tex
 # Steps:
 
 ## 1. Data Collection:
-A. Textbook data: 27 textbooks from 7 subjects (Physics, Chemistry, Biology, Mathematics, Science, Geography and Economics) across grade-levels 6-12 are collected from https://ncert.nic.in. These data are stored in 1_PDF folder in PDF format. You can download the data from https://drive.google.com/drive/folders/1bfzMKe-GATR-2rucQGPipN1qmFCCeH-S?usp=sharing
+A. Textbook data: 28 textbooks from 7 subjects (Physics, Chemistry, Biology, Mathematics, Science, Geography and Economics) across grade-levels 6-12 are collected from https://ncert.nic.in. These data are stored in 1_PDF folder in PDF format. You can download the data from https://drive.google.com/drive/folders/1bfzMKe-GATR-2rucQGPipN1qmFCCeH-S?usp=sharing
 
 B. QA data: 6 different Stack Exchange sites (Mathematics, Physics, Chemistry, Biology, Earth Science, and Economics) are dumped as 7 XML files (Physics, Chemistry, Biology, Mathematics, Science, Geography and Economics) under 'QA' folder. You can download the dumps from https://archive.org/details/stackexchange
  
