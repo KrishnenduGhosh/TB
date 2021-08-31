@@ -53,7 +53,7 @@ A. For each query, '9_Retrieval.py' extracts augmentations (question id, title, 
 
 B. '9_Retrieval.py' retrieves, re-ranks and filters these augmentations for the queries, generated in the previous step and the fectched augmentations are stored under '10_Retrieval' folder as 'RT.txt', 'RR.txt' and 'AUG.txt', respectively.
 
-C. '9_Retrieval.py' assesses these retrieved augmentations against 'GS_Augmentation.txt' using six standard metrics: MAP (mean average precision), MRR (Mean reciprocal rank), RP (R-precision), P@1 (Precision at 1), P@5 (Precision at 5), and P@10 (Precision at 10). You can download the gold-standard data from  https://drive.google.com/drive/folders/1sbZoJzqcABbMce9uj1AojsQbDOqjCQaq?usp=sharing.
+C. '9_Retrieval.py' assesses these retrieved augmentations against 'GS_Augmentation.txt' using 6 metrics: MAP, MRR, RP, P@1, P@5, and P@10. You can download the gold-standard data from  https://drive.google.com/drive/folders/1sbZoJzqcABbMce9uj1AojsQbDOqjCQaq?usp=sharing.
 
 ## 8. Data Stats & Annotation Quality:
 '10_get_stat.py' (a) offers statistics on the textbook data and QA data, (b) assesses the annotation quality for gold-standards for deficiency diagnosis and textbook augmentation.
