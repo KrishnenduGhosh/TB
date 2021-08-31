@@ -1,9 +1,7 @@
 # Augmentations for Textbooks
 
 # Introduction:
-This project presents a method for recommending augmentations against conceptual gaps in the textbooks. Question Answer (QA) pairs from community question-answering (cQA) forums are noted to offer a precise yet comprehensive illustration of concepts with compelling examples. Our proposed method retrieves QA pairs for a target concept to suggest two types of augmentations: basic and supplementary. Basic augmentations are suggested for the concepts for which a textbook lacks fundamental references.
-
-The proposed textbook augmentation system has been realized using four major modules: (i) concept extraction, (ii) deficiency diagnosis, (iii) query generation and (iv) textbook augmentation.
+This project presents augmentations to handle the conceptual gaps present in textbooks. This augmentation system has major modules:
 
 1. Concept Extraction: Key-concepts are extracted from the textbook sections using an entity annotation service (TAGME).
 
