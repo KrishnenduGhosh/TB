@@ -81,7 +81,7 @@ Here is a list of python libraries. Install them befoe running the codes:
 * skmultilearn
 
 # Contacts
-In case of any queries, you can reach us at kghosh.cs@iitkgp.ac.in
+In case of any queries, you can reach us at kghosh.cs@gmail.com
 
 # Cite
 <!---
