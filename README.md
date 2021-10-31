@@ -85,7 +85,7 @@ In case of any queries, you can reach us at kghosh.cs@iitkgp.ac.in
 
 # Cite
 <!---
-If this work is helpful for your research, please cite our paper 'Remediating Textbook Deficiencies by Leveraging Community Question Answers: A Machine Learning-based Approach' available at .
+If this work is helpful for your research, please cite in a paper 'Remediating Textbook Deficiencies by Leveraging Community Question Answers: A Machine Learning-based Approach' available at .
 
     @article{ghosh2022remediating,
         title = "Remediating Textbook Deficiencies by Leveraging Community Question Answers: A Machine Learning-based Approach",
@@ -96,7 +96,7 @@ If this work is helpful for your research, please cite our paper 'Remediating Te
         keywords = "Concept extraction, Deficiency diagnosis, Query generation, Question retrieval, Textbook augmentation"
     }
 
-A similar work on augmenting video lectures is discussed in our paper 'Augmenting Video Lectures: Identifying Off-topic Concepts and Linking to Relevant Video Lecture Segments' available at https://link.springer.com/article/10.1007/s40593-021-00257-z.
+A similar work on augmenting video lectures is discussed in a paper 'Augmenting Video Lectures: Identifying Off-topic Concepts and Linking to Relevant Video Lecture Segments' available at https://link.springer.com/article/10.1007/s40593-021-00257-z.
 
     @article{ghosh2021augmenting,
         title = "Augmenting Video Lectures: Identifying Off-topic Concepts and Linking to Relevant Video Lecture Segments",
@@ -108,7 +108,7 @@ A similar work on augmenting video lectures is discussed in our paper 'Augmentin
         keywords = "Video lecture augmentation, Off-topic concept identification, MOOCs, Concept similarity, Community detection, Retrieval and re-ranking"
     }
 --->
-The module on retrieving questions is discussed in details in our paper 'Using Re-Ranking to Boost Deep Learning Based Community Question Retrieval' available at https://dl.acm.org/doi/pdf/10.1145/3106426.3106442.
+The module on retrieving questions is discussed in details in a paper 'Using Re-Ranking to Boost Deep Learning Based Community Question Retrieval' available at https://dl.acm.org/doi/pdf/10.1145/3106426.3106442.
 
     @inproceedings{ghosh2017using,
     author = {Ghosh, Krishnendu and Bhowmick, Plaban Kumar and Goyal, Pawan},
