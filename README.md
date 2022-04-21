@@ -85,7 +85,7 @@ In case of any queries, you can reach us at kghosh.cs@gmail.com
 
 # Cite
 
-If this work is helpful for your research, please cite in a paper 'Remediating Textbook Deficiencies by Leveraging Community Question Answers: A Machine Learning-based Approach' available at .
+If this work is helpful for your research, please cite in a paper 'Remediating Textbook Deficiencies by Leveraging Community Question Answers' available at https://link.springer.com/article/10.1007/s10639-022-10937-5.
 
     @article{ghosh2022remediating,
         title = "Remediating Textbook Deficiencies by Leveraging Community Question Answers",
