@@ -91,7 +91,7 @@ If this work is helpful for your research, please cite in a paper 'Remediating T
         title = "Remediating Textbook Deficiencies by Leveraging Community Question Answers",
         journal = "Education and Information Technologies",
         year = "2022",
-        doi = "",
+        doi = "https://doi.org/10.1007/s10639-022-10937-5",
         author = "Krishnendu Ghosh",
         keywords = "Concept extraction, Deficiency diagnosis, Query generation, Question retrieval, Textbook augmentation"
     }
