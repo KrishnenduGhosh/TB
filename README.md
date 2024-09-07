@@ -14,7 +14,7 @@ This project presents augmentations to handle the conceptual gaps present in tex
 # Steps:
 
 ## 1. Data Collection:
-A. Textbook data: 28 textbooks from 7 subjects (Physics, Chemistry, Biology, Mathematics, Science, Geography and Economics) across grade-levels 6-12 are collected from https://ncert.nic.in. These data are stored in 1_PDF folder in PDF format. You can download the data from https://drive.google.com/drive/folders/1bfzMKe-GATR-2rucQGPipN1qmFCCeH-S?usp=sharing
+A. Textbook data: 28 textbooks from 7 subjects (Physics, Chemistry, Biology, Mathematics, Science, Geography and Economics) across grade-levels 6-12 are collected from https://ncert.nic.in. These data are stored in 1_PDF folder in PDF format. You can download the data from [https://drive.google.com/drive/folders/1bfzMKe-GATR-2rucQGPipN1qmFCCeH-S?usp=sharing](https://drive.google.com/drive/folders/1a47l9xiT6mMu5mS_2Z4hao1NXO7v617n?usp=sharing)
 
 B. QA data: 6 different Stack Exchange sites (Mathematics, Physics, Chemistry, Biology, Earth Science, and Economics) are dumped as 7 XML files (Physics, Chemistry, Biology, Mathematics, Science, Geography and Economics) under 'QA' folder. You can download the dumps from https://archive.org/details/stackexchange
  
@@ -33,7 +33,7 @@ A. Wikipedia links are extracted for the extracted concepts. The code '4_wiki.py
 B. The code '4_wiki.py' reads 'uConcepts.txt' and combines the inlinks and outlinks for the read concepts. This combination is written for randomly selected 100 concepts in 'GS' folder in TXT format as three files: 'Related.txt,' 'Prerequisite.txt,' and 'Dependent.txt.' We modify these files by assigning an annotator to tag these concepts and their aspcts as right/wrong. The annotated/modified files are available at https://drive.google.com/drive/folders/1sbZoJzqcABbMce9uj1AojsQbDOqjCQaq?usp=sharing.
 
 ## 5. Deficiency Diagnosis:
-A. The concepts from '4_Concept' folder are shown to annotators and they are asked to tag the cooresponding deficiency. This annotation is stored as 'GS_Deficiency.txt' (under folder 'GS' available at https://drive.google.com/drive/folders/1sbZoJzqcABbMce9uj1AojsQbDOqjCQaq?usp=sharing).
+A. The concepts from '4_Concept' folder are shown to annotators and they are asked to tag the cooresponding deficiency. This annotation is stored as 'GS_Deficiency.txt' (under folder 'GS' available at [https://drive.google.com/drive/folders/1sbZoJzqcABbMce9uj1AojsQbDOqjCQaq?usp=sharing](https://drive.google.com/drive/folders/1T0LdT9Ix2U_f3_60oxRtONrXp89Noa_G?usp=sharing)).
 
 B. '5_sfeature.py' extracts the section-specfic features and stores in '6_sfeature' folder.
 
